@@ -1731,8 +1731,8 @@
       dest: /etc/rc.d/rc.local
       create: yes
       mode: u+x
-      regexp: "^#?ip link set {{ item.stdout }} promisc"
-      line: "ip link set {{ item.stdout }} promisc off"
+      regexp: "^#?ip link set {{ item }} promisc"
+      line: "ip link set {{ item }} promisc off"
   with_items: "{{ rhel_07_040670_audit }}"
   when: rhel_07_040670_audit.stdout is defined
   notify: restart rc-local
