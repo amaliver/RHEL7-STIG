@@ -1733,7 +1733,7 @@
       mode: u+x
       regexp: "^#?ip link set {{ item }} promisc"
       line: "ip link set {{ item }} promisc off"
-  with_items: "{{ rhel_07_040670_audit }}"
+  with_items: "{{ rhel_07_040670_audit.stdout }}"
   when: rhel_07_040670_audit.stdout is defined
   notify: restart rc-local
   tags:
