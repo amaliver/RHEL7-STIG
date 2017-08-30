@@ -266,4 +266,5 @@
       - audit
       - RHEL-07-040670
       - always
- - debug: msg="{{ rhel_07_040670_audit.stdout }}"
+ - debug:
+     msg: "{{ rhel_07_040670_audit.stdout }}"
