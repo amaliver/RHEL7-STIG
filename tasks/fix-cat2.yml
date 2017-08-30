@@ -1734,7 +1734,7 @@
       regexp: "^#?ip link set {{ item.stdout }} promisc"
       line: "ip link set {{ item.stdout }} promisc off"
   with_items: "{{ rhel_07_040670_audit.results }}"
-  when: item.stdout != ""
+  when: rhel_07_040670_audit.stdout is defined
   notify: restart rc-local
   tags:
       - cat2
