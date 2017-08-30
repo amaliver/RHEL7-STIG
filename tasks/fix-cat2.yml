@@ -421,7 +421,7 @@
       - patch
       - RHEL-07-020100
       - usb
-         
+
 - name: "MEDIUM | RHEL-07-020110 | PATCH | File system automounter must be disabled unless required."
   systemd:
       name: autofs
@@ -435,12 +435,16 @@
       - autofs
 
 - name: "MEDIUM | RHEL-07-020240 | PATCH | The operating system must define default permissions for all authenticated users in such a way that the user can only read and modify their own files."
-  command: "true"
+  lineinfile:
+      dest: /etc/login.defs
+      regexp: '^#?UMASK'
+      line: "UMASK 077"
   tags:
       - cat2
       - medium
       - patch
       - RHEL-07-020240
+      - logindefs
 
 - name: "MEDIUM | RHEL-07-020260 | PATCH | Vendor packaged system security patches and updates must be installed and up to date."
   command: "true"
@@ -1722,12 +1726,22 @@
       - ipv4
 
 - name: "MEDIUM | RHEL-07-040670 | PATCH | Network interfaces must not be in promiscuous mode."
-  command: "true"
+  lineinfile:
+      state: present
+      dest: /etc/rc.d/rc.local
+      create: yes
+      mode: u+x
+      regexp: "^#?ip link set {{ item.stdout }} promisc"
+      line: "ip link set {{ item.stdout }} promisc off"
+  with_items: "{{ rhel_07_040670_audit.results }}"
+  when: item.stdout != ""
+  notify: restart rc-local
   tags:
       - cat2
       - medium
       - patch
       - RHEL-07-040670
+      - network
 
 - name: "MEDIUM | RHEL-07-040680 | PATCH | The system must be configured to prevent unrestricted mail relaying."
   lineinfile:
@@ -1846,12 +1860,15 @@
       - RHEL-07-041003
 
 - name: "MEDIUM | RHEL-07-041004 | PATCH | The operating system must implement smart card logons for multifactor authentication for access to privileged accounts."
-  command: "true"
+  authconfig:
+      smartcardaction: yes
+      enablesmartcard: yes
   tags:
       - cat2
       - medium
       - patch
       - RHEL-07-041004
+      - authconfig
 
 - name: "MEDIUM | RHEL-07-041010 | PATCH | Wireless network adapters must be disabled."
   command: nmcli radio wifi off
