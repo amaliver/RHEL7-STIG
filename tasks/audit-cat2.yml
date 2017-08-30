@@ -255,7 +255,8 @@
       - always
 
 - name: "MEDIUM | RHEL-07-040670 | PATCH | Network interfaces must not be in promiscuous mode."
-  command: ip link | grep -i promisc | awk '{print substr($2, 1, length($2)-1)}'
+  shell: >
+      ip link | grep -i promisc | awk '{print substr($2, 1, length($2)-1)}'
   failed_when: no
   changed_when: no
   ignore_errors: yes
@@ -267,4 +268,4 @@
       - RHEL-07-040670
       - always
  - debug:
-     msg: "{{ rhel_07_040670_audit.stdout }}"
+     msg: "{{ rhel_07_040670_audit.results }}"

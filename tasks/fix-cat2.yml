@@ -1732,9 +1732,9 @@
       create: yes
       mode: u+x
       regexp: "^#?ip link set {{ item }} promisc"
-      line: "ip link set {{ item }} promisc off"
-  with_items: "{{ rhel_07_040670_audit.stdout }}"
-  when: rhel_07_040670_audit.stdout is defined
+      line: "ip link set {{ item }} promisc off multicast off" ip link set dev <devicename>  promisc off
+  with_items: "{{ rhel_07_040670_audit.stdout_lines }}"
+  when: rhel_07_040670_audit.stdout_lines is defined
   notify: restart rc-local
   tags:
       - cat2
