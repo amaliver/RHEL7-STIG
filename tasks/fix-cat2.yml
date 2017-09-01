@@ -1856,8 +1856,6 @@
       dest: /etc/pam_pkcs11/pam_pkcs11.conf
       regexp: '^\s?{{ item }}'
       replace: '\1, ocsp_on;'
-      backrefs: yes
-      backup: yes
   with_items: "{{ rhel_07_041003_audit.stdout_lines }}"
   when: rhel_07_041003_audit is defined
   tags:
