@@ -1857,7 +1857,7 @@
       regexp: '^#?(cert_policy..).(ca)'
       replace: 'cert_policy =ca, ocsp_on'
       backup: yes
-  when: rhel_07_041003_audit
+  when: rhel_07_041003_audit.stat.exists
   tags:
       - cat2
       - medium
