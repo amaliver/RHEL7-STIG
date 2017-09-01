@@ -1854,7 +1854,7 @@
 - name: "MEDIUM | RHEL-07-041003 | PATCH | The operating system must implement certificate status checking for PKI authentication."
   replace:
       dest: /etc/pam_pkcs11/pam_pkcs11.conf
-      regexp: '^\s?{{ item }}'
+      regexp: '({{ item }})'
       replace: '\1, ocsp_on;'
   with_items: "{{ rhel_07_041003_audit.stdout_lines }}"
   when: rhel_07_041003_audit is defined
