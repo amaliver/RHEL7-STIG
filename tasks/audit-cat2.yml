@@ -272,8 +272,8 @@
       - always
 
 - name: "MEDIUM | RHEL-07-041003 | AUDIT | The operating system must implement certificate status checking for PKI authentication."
-  stat:
-      path: /etc/pam_pkcs11/pam_pkcs11.conf
+  shell: >
+      if (test -e /etc/pam_pkcs11/pam_pkcs11.conf); then grep cert_policy /etc/pam_pkcs11/pam_pkcs11.conf| grep -v ocsp_on; fi| tr -d \;
   register: rhel_07_041003_audit
   failed_when: no
   changed_when: no
