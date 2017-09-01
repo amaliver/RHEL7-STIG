@@ -1856,10 +1856,10 @@
       state: present
       dest: /etc/pam_pkcs11/pam_pkcs11.conf
       regexp: '^\s?{{ item }}'
-      line: "\1, ocsp_on;"
+      line: '\1, ocsp_on;'
       backrefs: yes
       backup: yes
-  with_items: {{ rhel_07_041003_audit.stdout_lines }}
+  with_items: "{{ rhel_07_041003_audit.stdout_lines }}"
   when: rhel_07_041003_audit is defined
   tags:
       - cat2
