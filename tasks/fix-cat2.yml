@@ -1853,7 +1853,6 @@
 
 - name: "MEDIUM | RHEL-07-041003 | PATCH | The operating system must implement certificate status checking for PKI authentication."
   replace:
-      state: present
       dest: /etc/pam_pkcs11/pam_pkcs11.conf
       regexp: '^\s?{{ item }}'
       line: '\1, ocsp_on;'
